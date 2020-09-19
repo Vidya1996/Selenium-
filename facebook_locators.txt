@@ -1,0 +1,22 @@
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class facebook {
+
+	public static void main(String[] args) {
+	
+		System.setProperty("webdriver.chrome.driver","C:\\Users\\vidya\\Selenium\\chromedriver\\chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		driver.get("http:\\google.com");
+		driver.get("http:\\facebook.com");
+		//By considering name locator;
+		driver.findElement(By.name("email")).sendKeys("Vidyasweety6143@gmail.com");
+		//By considering Xpath locator;
+		driver.findElement(By.xpath("//*[@id='pass']")).sendKeys("123456");
+		 //By considering Customized CSS selector locator;
+		 //driver.findElement(By.name("login")).click();
+		 //By consider Link text locator;
+		 driver.findElement(By.linkText("forgotten account")).click();
+}
+}

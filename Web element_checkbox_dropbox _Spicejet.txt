@@ -1,0 +1,76 @@
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
+
+public class Webelement {
+
+	public static void main(String[] args) throws InterruptedException  {
+		// TODO Auto-generated method stub
+		System.setProperty("webdriver.chrome.driver","C:\\Users\\vidya\\Selenium\\chromedriver\\chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		driver.get("http:\\google.com");
+		driver.get("http:\\spicejet.com");
+		
+		//To click radio button.(Select one way trip)
+	driver.findElement(By.cssSelector("input#ctl00_mainContent_rbtnl_Trip_0")).click();
+		
+		// To click radio button.(Select Round trip)
+		driver.findElement(By.cssSelector("input#ctl00_mainContent_rbtnl_Trip_1")).click();
+		
+		//To select dynamic dropbox
+		
+		driver.findElement(By.cssSelector("input#ctl00_mainContent_ddl_originStation1_CTXT")).click();  //It will click the From dynamic dropdown in spicejet 
+		driver.findElement(By.xpath("//a[@value='BLR']")).click(); //Select  from destination (banglore) Xpath
+		Thread.sleep(2000);   //delay
+		driver.findElement(By.xpath("(//a[@value='MAA'])[2]")).click();    //select TO destination (Mumbai) Xpath 2 indicates Select this location for second index that is "TO" destination
+		 
+		//To select a calender 
+		driver.findElement(By.cssSelector(".ui-state-default.ui-state-highlight.ui-state-hover")).click(); //In current date unique class name is present so i consider this
+
+	//To check whether Disable or enable  calender attribute bcz in one way trip return is disable, In Round trip it is enable so
+          driver.findElement(By.cssSelector("input#ctl00_mainContent_rbtnl_Trip_1")).click();  \\Round trip is selected.
+       System.out.println(driver.findElement(By.id("Div1")).getAttribute("Style");  // It should display true.
+      if(driver.findelement(By.id("Div1")).getAttribute("Style").contains("1"))
+      {
+           System.out.println("Its Enabled");
+            Assert.assertTrue(true);
+       }
+   else
+  {
+  Assert.asserttrue(false);
+  }
+
+		//To select passenger 
+	Select s= new Select (driver.findElement(By.id("ctl00_mainContent_ddl_Adult")));
+    s.selectByValue("2");
+      
+      
+    //To select Currency 
+      Select s1 = new Select (driver.findElement(By.id("ctl00_mainContent_DropDownListCurrency")));
+      s1.selectByValue("AED");
+      
+     //To select check box
+      
+        driver.findElement(By.id("ctl00_mainContent_chk_friendsandfamily")).click();
+      System.out.println(driver.findElement(By.id("ctl00_mainContent_chk_friendsandfamily")).isSelected()); //To confirm whether the check box is selected or not 
+      
+    System.out.println(driver.findElements(By.cssSelector("input[type='checkbox']")).size()); // To count number of check box 
+      
+    // To select Search 
+  
+    driver.findelement(By.id("ctl00_mainContent_btn_FindFlights")).click();
+}
+
+}
+
+
+
+
+
+
+
+
+
+
