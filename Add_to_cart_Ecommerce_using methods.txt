@@ -1,0 +1,87 @@
+import java.util.Arrays;
+
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class AddcartEcommereceUsingMethods {
+
+	public static void main(String[] args) throws InterruptedException {
+		// TODO Auto-generated method stub
+		System.setProperty("webdriver.chrome.driver", "C:\\Users\\vidya\\Selenium\\chromedriver\\chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		
+
+		// If i want to add more then one number of cart we have to use array
+		String[] itemsNeeded = { "Cucumber", "Brocolli" }; // Creating an array because it takes less memory
+		driver.get("https://rahulshettyacademy.com/seleniumPractise/");
+		Thread.sleep(3000);
+  addItems(driver,itemsNeeded); //Without creating the object we are calling method block by using Static in method block begining
+  
+  // OR ELSE We can call the method by creating the object that is shown below comment line.
+  
+ // AddcartEcommereceUsingMethods b = new AddcartEcommereceUsingMethods(); // Creating a object for the particular class
+ // b.addItems(driver, itemsNeeded);
+	
+	}
+	
+	
+	public static void addItems(WebDriver driver, String[] itemsNeeded ) // METHOD BLOCK STARTS FROM HERE 
+	{
+		int j = 0;
+		// TO get a list of products present to buy the vegetables
+				// Return type of find element = Web element
+				// Return type of find elements = List<Webelements>
+
+				
+				List<WebElement> products = driver.findElements(By.cssSelector("h4.product-name")); // Select particular product
+																									// in HTML code using class
+																									// name create a CSSselector
+
+				// To get a number of products present in the list and list of the products name
+				for (int i = 0; i < products.size(); i++) // to get a number of products present in the cart
+				{
+					// Brocolli - 1 Kg (Split this two because in the app it will display Brocolli-1
+					// Kg but in out array list Just we are matching brocoli
+					// Brocolli = index 0 will fall
+					// Index 1 = 1 Kg will fall
+					String[] name = products.get(i).getText().split("-"); // list of the product names & split separte that
+																			// brocolli & 1kg so that i m using split function
+																			// but here both string(Brocolli) and integer(1Kg)
+																			// are present so changed to String array
+
+					// Now name[0] = Brocolli , name[1] = 1Kg
+					String formattedName = name[0].trim(); // to remove the white space we use trim because in website there is
+															// a space after brocolli so remove that we use this
+
+					// Convert array into array list for easy search to execute it requires more
+					// memory so here i convert array to array list by taking google help you can
+					// convert no isssues because we can't memorise everything
+					List itemsneededList = Arrays.asList(itemsNeeded);
+
+					// Check whether name you extracted is present in array list or not
+
+					if (itemsneededList.contains(formattedName)) {
+						j++;
+						driver.findElements(By.xpath("//button[text()='ADD TO CART']")).get(i).click(); // Click on Add to cart
+						// break; // To exit the loop after the task is completed but for one product is
+						// used but if i use break for more that one product then only first product
+						// will validate & it will exit from the loop other product will not validate so
+						// for that
+						if (j == itemsNeeded.length) { // Because in array there are 3 products so if it runs 3 times means it
+														// executes all the products
+							// AND TO FIND THE ARRAY SIZE WE USE LENGTH
+							break;
+
+						}
+					}
+				}
+
+			}
+
+	}
+
+
