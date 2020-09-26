@@ -1,0 +1,43 @@
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+
+public class Action_mouse_Keyboard {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		System.setProperty("webdriver.chrome.driver", "C:\\Users\\vidya\\Selenium\\chromedriver\\chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		driver.get("https://www.amazon.com/");
+		
+		//Important Lines Starts this is for MouseOver 
+		
+		//To select we are creating select class right in the same way
+		//To action we are creating action class 
+		//When ever we build a actions we should declare Build & Perform compulsory 
+		
+		Actions a = new Actions(driver); // Creating Action Class inside we are pushing a driver capabilty into the action
+		
+a.moveToElement(driver.findElement(By.xpath("//*[@id='nav-link-accountList']/span[1]"))).build().perform(); // It will move the webelement to the specific location (If you add buid & perform then it will work other wise it will not)
+// Till this MouseOver 
+
+//To enter a Words in Capital letter in search box
+//In this we are doing composite action It means N number of actions in single time that is 
+a.moveToElement(driver.findElement(By.id("twotabsearchtextbox"))).click().keyDown(Keys.SHIFT).sendKeys("hello").build().perform();
+
+//Keydown = Hold the key because we know if i want to write a capital (Shift+letter = Capital letter)
+//id = Search box id , first we will click , then hold the key , which key = Shift , then sendkey = hello And build & perform.
+
+//For Double click 
+a.moveToElement(driver.findElement(By.id("twotabsearchtextbox"))).click().keyDown(Keys.SHIFT).sendKeys("hello").doubleClick().build().perform();
+
+//To right click on the element 
+
+a.moveToElement(driver.findElement(By.xpath("//*[@id='nav-link-accountList']/span[1]"))).contextClick().build().perform();
+
+//Drag & Drop concept is discussed in frames 
+
+}
+}
