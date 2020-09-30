@@ -1,0 +1,29 @@
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+
+public class Frames {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		System.setProperty("webdriver.chrome.driver", "C:\\Users\\vidya\\Selenium\\chromedriver\\chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		driver.get("http://jqueryui.com/droppable/");
+		System.out.println(driver.findElements(By.tagName("iframe")).size()); // To count the number of frames present in the web page 
+//driver.switchTo().frame(0); // Switch the frame by using index(0) means 1st frame 
+driver.switchTo().frame(driver.findElement(By.cssSelector("iframe[class='demo-frame']"))); //Switch the frame by using webelement(locator) 
+	//driver.findElement(By.id("draggable")).click();   //It will click on the "Drag me to my target"
+Actions a = new Actions(driver);    // To select a Action to perform that drag & drop 
+WebElement source = driver.findElement(By.id("draggable"));  //Drag location is save in a webElement name as source 
+WebElement target = driver.findElement(By.id("droppable"));  //Drop location is save in a webElement name as target source
+
+a.dragAndDrop(source, target).build().perform(); //Action build & perfome frome source to target loction 
+driver.switchTo().defaultContent();  // This is important step that is 'get out of this frame and switch to normal web page"
+	
+	
+	}
+
+
+}
