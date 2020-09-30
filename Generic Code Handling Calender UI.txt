@@ -1,0 +1,49 @@
+import java.util.List;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class calendar {
+
+public static void main(String[] args) {
+// TODO Auto-generated method stub
+
+System.setProperty("webdriver.chrome.driver", "C:\\Users\\vidya\\Selenium\\chromedriver\\chromedriver.exe");
+ChromeDriver driver=new ChromeDriver();
+driver.get("https://www.path2usa.com/travel-companions");
+//April 23
+driver.findElementByXPath(".//*[@id='travel_date']").click();  // Select the calender box by mention the location using webelement 
+
+
+while(!driver.findElement(By.cssSelector("[class='datepicker-days'] [class='datepicker-switch']")).getText().contains("April")) != It will do opposite to the condition (If condition is true then the nagation say false)
+Eg= Current calender is in december20th Assume like that
+   While (Dec= April) = FALSE right but due to nagotion it is true and it will enter into the loop
+
+{
+driver.findElement(By.cssSelector("[class='datepicker-days'] th[class='next']")).click();  // It will click forward arrow (>)To switch next month 
+}
+    While(true) // while loop is keep on executing untill it false 
+ 
+//To select a particaular date 
+
+List<WebElement> dates= driver.findElements(By.className("day"));   
+
+//Grab common attribute//Put into list and iterate -Importatnt line 
+
+int count=driver.findElements(By.className("day")).size(); // In entire calender the (classname=day) is selected in one variable that is "count"
+
+for(int i=0;i<count;i++)
+{
+String text=driver.findElements(By.className("day")).get(i).getText();
+if(text.equalsIgnoreCase("23"))                                                   //If i=23 then stop and enter to the next loop 
+{
+driver.findElements(By.className("day")).get(i).click(); Here it will click that particualr number 
+break;   // Get out of it
+}
+
+}
+}
+
+}
+
+
