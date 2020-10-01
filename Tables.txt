@@ -1,0 +1,46 @@
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+// Eg = Cricket 2020 IPL Score-card
+
+public class Tables {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		int Sum=0;
+		System.setProperty("webdriver.chrome.driver", "C:\\Users\\vidya\\Selenium\\chromedriver\\chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		driver.get("https://www.cricbuzz.com/live-cricket-scorecard/30370/rcb-vs-mi-10th-match-indian-premier-league-2020"); //Cricbuzz IPL M<atch Inning Scorecard
+		
+		WebElement IPL=driver.findElement(By.cssSelector("div[class='cb-col cb-col-100 cb-ltst-wgt-hdr']"));
+	int Rowcount = IPL.findElements(By.cssSelector("div[class='cb-col cb-col-100 cb-scrd-itms']")).size(); // To count number of rows present in the score card table
+		int Count =IPL.findElements(By.cssSelector("div[class='cb-col cb-col-100 cb-scrd-itms'] div:nth-child(3)")).size(); //Css selector of row followed by to identifing 3rd coulomn (Parent to child)
+		for(int i=0; i<Count-2; i++)
+		{
+		   System.out.println(IPL.findElements(By.cssSelector("div[class='cb-col cb-col-100 cb-scrd-itms'] div:nth-child(3)")).get(i).getText());   //there are 7 rows out of that 2 rows are Extra & total row i dont want that entire row detail of that i need just runs of the extra that will do in the next row  
+		String Value = IPL.findElements(By.cssSelector("div[class='cb-col cb-col-100 cb-scrd-itms'] div:nth-child(3)")).get(i).getText(); //Each time loop runs it store in variable "Value"
+		int valueinteger=Integer.parseInt(Value);  //Convert String(Value) to integer and stored in variable (Value integer)
+		Sum = Sum +valueinteger;
+		}
+		System.out.println(Sum); //Just give the output from the loop
+System.out.println(driver.findElement(By.xpath("//*[@id='innings_1']/div[1]/div[8]/div[1]/following-sibling::div")).getText()); //(This is called asSibling Xpath Concept) Only to print Runs number in "Extra" row,If i do in the loop it will print entire row data after run column 
+String Extras =driver.findElement(By.xpath("//*[@id='innings_1']/div[1]/div[8]/div[1]/following-sibling::div")).getText();
+int extrasValue = Integer.parseInt(Extras);
+int TotalSum = Sum+extrasValue;
+System.out.println(TotalSum);
+
+System.out.println(driver.findElement(By.xpath("//*[@id='innings_1']/div[1]/div[9]/div[1]/following-sibling::div")).getText());  //Only to print runs number in "Total " row ,If i do in the loop it will print entire row data after run column 
+String ActualTotal=driver.findElement(By.xpath("//*[@id='innings_1']/div[1]/div[9]/div[1]/following-sibling::div")).getText();
+int ActualTotalValue = Integer.parseInt(ActualTotal);
+if(ActualTotalValue==TotalSum)
+{
+	System.out.println("Count matches");
+	}
+else
+{
+	System.out.println("Count fail");
+}
+}
+}
